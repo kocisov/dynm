@@ -1,14 +1,12 @@
 {
   "name": "dynm",
-  "description": "DynamoDB Wrapper",
-  "version": "0.0.1",
+  "description": "Utility for easier interaction with DynamoDB",
+  "version": "0.0.2",
   "author": "kocisov",
   "dependencies": {
     "@aws-sdk/client-dynamodb": "^3.21.0",
-    "@aws-sdk/client-dynamodb-streams": "^3.21.0",
     "@aws-sdk/lib-dynamodb": "^3.21.0",
-    "@aws-sdk/util-dynamodb": "^3.21.0",
-    "@babel/runtime": "^7.14.6"
+    "@aws-sdk/util-dynamodb": "^3.21.0"
   },
   "devDependencies": {
     "@babel/preset-typescript": "^7.14.5",

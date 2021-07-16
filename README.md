@@ -1,4 +1,4 @@
-# dynm
+# ![Dynm](https://github.com/kocisov/dynm/blob/main/dynm.svg?raw=true) dynm [![NPM](https://badgen.net/npm/v/dynm)](https://www.npmjs.com/package/dynm)
 
 > Utility for easier interaction with DynamoDB
 
@@ -40,7 +40,9 @@ if (result.ok) {
 
 - `createBaseTable(name: string)` - Creates base table with specified name and with primaryKey
 - `get(id: string)` - Gets one item from table by id
+- `getBatch(id: string[])` - Gets multiple items from table by id
 - `add<T>(data: T, replace?: boolean)` - Inserts and/or replaces new item to table
+- `addBatch<T>(data: T[])` - Inserts new items to table
 - `update<T>(id: string, data: T)` - Updates one item from table by id and returns full item with new values
 - `delete(id: string)` - Deletes one item from table by id
 - `all()` - Gets all items from table

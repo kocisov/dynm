@@ -4,6 +4,10 @@ import {
   DynamoDBClient,
 } from "@aws-sdk/client-dynamodb";
 import {
+  BatchGetCommand,
+  BatchGetCommandOutput,
+  BatchWriteCommand,
+  BatchWriteCommandOutput,
   DeleteCommand,
   DeleteCommandOutput,
   DynamoDBDocumentClient,
@@ -99,6 +103,22 @@ export class Dynm {
     );
   }
 
+  async getBatch<T>(ids: string[]): DynmResult<BatchGetCommandOutput, T> {
+    return tryWrapper(() =>
+      this.doc.send(
+        new BatchGetCommand({
+          RequestItems: {
+            [this.baseTable]: {
+              Keys: ids.map((x) => ({
+                [this.primaryKey]: x,
+              })),
+            },
+          },
+        })
+      )
+    );
+  }
+
   async add<T>(data: Add<T>, replace = false): DynmResult<PutCommandOutput> {
     return tryWrapper(async () => {
       if (!replace) {
@@ -114,6 +134,22 @@ export class Dynm {
         })
       );
     });
+  }
+
+  async addBatch<T>(data: Array<Add<T>>): DynmResult<BatchWriteCommandOutput> {
+    return tryWrapper(() =>
+      this.doc.send(
+        new BatchWriteCommand({
+          RequestItems: {
+            [this.baseTable]: data.map((x) => ({
+              PutRequest: {
+                Item: x,
+              },
+            })),
+          },
+        })
+      )
+    );
   }
 
   async delete(id: string): DynmResult<DeleteCommandOutput> {

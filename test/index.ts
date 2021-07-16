@@ -14,6 +14,25 @@ async function main() {
 
   console.log("[CREATE TABLE]:", addTable.ok, "\n");
 
+  const addMultiple = await dynm.addBatch([
+    {
+      id: "hello",
+      message: "Hello",
+    },
+    {
+      id: "bye",
+      message: "Bye",
+    },
+    {
+      id: "allo",
+      message: "Allo",
+    },
+  ]);
+
+  if (addMultiple.ok) {
+    console.log("[ADD MULTIPLE] =", addMultiple.value, "\n");
+  }
+
   const addOne = await dynm.add(
     {
       id: "hello",
@@ -39,6 +58,12 @@ async function main() {
 
   if (getOne.ok) {
     console.log("[GET] ID: hello =", getOne.value.Item, "\n");
+  }
+
+  const getMultiple = await dynm.getBatch(["hello", "bye"]);
+
+  if (getMultiple.ok) {
+    console.log("[GET MULTIPLE] =", getMultiple.value.Responses, "\n");
   }
 
   const up = await dynm.update("hello", {
